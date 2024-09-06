@@ -1,4 +1,4 @@
-package com.example.simurghadmin;
+package com.example.everzadmin;
 
 public class Blog {
     private String title;

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.simurghadmin"
+    namespace = "com.example.everzadmin"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.simurghadmin"
+        applicationId = "com.example.everzadmin"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

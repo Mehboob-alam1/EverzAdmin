@@ -1,4 +1,4 @@
-package com.example.simurghadmin;
+package com.example.everzadmin;
 
 import android.content.Context;
 import android.view.LayoutInflater;
