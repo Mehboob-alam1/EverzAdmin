@@ -20,44 +20,42 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class ManagePostActivity extends AppCompatActivity implements Adapter.OnEditClickListener, Adapter.OnDeleteClickListener{
-private Adapter adapter;
-private RecyclerView recyclerView;
-private DatabaseReference databaseReference;
-private LinearLayout btnCyber,btnWeb3,btnXR,btnIOT,btnCharity;
-private ArrayList<Blog> list;
+public class ManagePostActivity extends AppCompatActivity implements Adapter.OnEditClickListener, Adapter.OnDeleteClickListener {
+    private Adapter adapter;
+    private RecyclerView recyclerView;
+    private DatabaseReference databaseReference;
+    private LinearLayout btnCyber, btnWeb3, btnXR, btnIOT, btnCharity;
+    private ArrayList<Blog> list;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_post);
 
-        recyclerView=findViewById(R.id.recyclerHome);
-        databaseReference= FirebaseDatabase.getInstance().getReference("blogs").child("Home");
-        list=new ArrayList<>();
-        btnCharity=findViewById(R.id.btnCharity);
-        btnIOT=findViewById(R.id.btnIOT);
-        btnXR=findViewById(R.id.btnXR);
-        btnWeb3=findViewById(R.id.btnWeb3);
-        btnCyber=findViewById(R.id.btnCyber);
-
-
-
+        recyclerView = findViewById(R.id.recyclerHome);
+        databaseReference = FirebaseDatabase.getInstance().getReference("blogs").child("Home");
+        list = new ArrayList<>();
+        btnCharity = findViewById(R.id.btnCharity);
+        btnIOT = findViewById(R.id.btnIOT);
+        btnXR = findViewById(R.id.btnXR);
+        btnWeb3 = findViewById(R.id.btnWeb3);
+        btnCyber = findViewById(R.id.btnCyber);
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     list.clear();
 
-                    for (DataSnapshot snap: snapshot.getChildren()){
+                    for (DataSnapshot snap : snapshot.getChildren()) {
 
-                        Blog blog =snap.getValue(Blog.class);
+                        Blog blog = snap.getValue(Blog.class);
                         list.add(blog);
                     }
 
-                    adapter= new Adapter(ManagePostActivity.this,list);
+                    adapter = new Adapter(ManagePostActivity.this, list);
                     adapter.setOnDeleteClickListener(ManagePostActivity.this);
                     adapter.setOnEditClickListener(ManagePostActivity.this);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ManagePostActivity.this));
@@ -73,41 +71,38 @@ private ArrayList<Blog> list;
         });
 
 
-
-
-
         btnCharity.setOnClickListener(v -> {
 
-            Intent i = new Intent(ManagePostActivity.this,ServicesBlogActivity.class);
-            i.putExtra("PN","Services");
-            i.putExtra("CN","Charity");
+            Intent i = new Intent(ManagePostActivity.this, ServicesBlogActivity.class);
+            i.putExtra("PN", "Services");
+            i.putExtra("CN", "Charity");
             startActivity(i);
 
         });
 
         btnIOT.setOnClickListener(v -> {
-            Intent i = new Intent(ManagePostActivity.this,ServicesBlogActivity.class);
-            i.putExtra("PN","Services");
-            i.putExtra("CN","IoT");
+            Intent i = new Intent(ManagePostActivity.this, ServicesBlogActivity.class);
+            i.putExtra("PN", "Services");
+            i.putExtra("CN", "IoT");
             startActivity(i);
         });
 
         btnXR.setOnClickListener(v -> {
-            Intent i = new Intent(ManagePostActivity.this,ServicesBlogActivity.class);
-            i.putExtra("PN","Services");
-            i.putExtra("CN","XR");
+            Intent i = new Intent(ManagePostActivity.this, ServicesBlogActivity.class);
+            i.putExtra("PN", "Services");
+            i.putExtra("CN", "XR");
             startActivity(i);
         });
         btnWeb3.setOnClickListener(v -> {
-            Intent i = new Intent(ManagePostActivity.this,ServicesBlogActivity.class);
-            i.putExtra("PN","Services");
-            i.putExtra("CN","Web3");
+            Intent i = new Intent(ManagePostActivity.this, ServicesBlogActivity.class);
+            i.putExtra("PN", "Services");
+            i.putExtra("CN", "Web3");
             startActivity(i);
         });
         btnCyber.setOnClickListener(v -> {
-            Intent i = new Intent(ManagePostActivity.this,ServicesBlogActivity.class);
-            i.putExtra("PN","Services");
-            i.putExtra("CN","Cyber");
+            Intent i = new Intent(ManagePostActivity.this, ServicesBlogActivity.class);
+            i.putExtra("PN", "Services");
+            i.putExtra("CN", "Cyber");
             startActivity(i);
         });
 
@@ -119,9 +114,9 @@ private ArrayList<Blog> list;
         Gson gson = new Gson();
         String data = gson.toJson(list.get(position));
         Intent i = new Intent(ManagePostActivity.this, EditPostActivity.class);
-        i.putExtra("PN","Home");
-        i.putExtra("CN","null");
-        i.putExtra("data",data);
+        i.putExtra("PN", "Home");
+        i.putExtra("CN", "null");
+        i.putExtra("data", data);
         startActivity(i);
     }
 
@@ -129,6 +124,7 @@ private ArrayList<Blog> list;
     public void onDeleteClick(int position) {
         databaseReference.child(list.get(position).getPushId()).removeValue((error, ref) -> {
             adapter.notifyDataSetChanged();
+
 
             Toast.makeText(this, "Blog removed", Toast.LENGTH_SHORT).show();
         });

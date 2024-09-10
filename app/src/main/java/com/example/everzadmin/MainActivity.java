@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Apply the adapter to the spinner
+
         // Listener for the first spinner
         binding.firstSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

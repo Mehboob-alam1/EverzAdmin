@@ -68,6 +68,7 @@ public class ServicesBlogActivity extends AppCompatActivity implements Adapter.O
 
 
 
+
     }
 
     @Override

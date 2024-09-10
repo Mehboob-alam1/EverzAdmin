@@ -54,6 +54,8 @@ public class AddEmailActivity extends AppCompatActivity {
                     String value = snapshot.getValue(String.class);
                     binding.etEmail.setText(value);
                 }
+
+
             }
 
             @Override
